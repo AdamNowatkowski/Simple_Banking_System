@@ -29,6 +29,7 @@ def menu_account(card_id, balance):
         print("Enter income:")
         income = input()
         cur.execute('UPDATE card SET balance = balance + {0} WHERE id = {1};'.format(income, card_id))
+        balance += int(income)
         conn.commit()
         print("Income was added")
         menu_account(card_id, balance)
@@ -76,7 +77,7 @@ def menu_account(card_id, balance):
                         conn.commit()
                         cur.execute('UPDATE card SET balance = balance + {0} WHERE number = {1};'.format(transfering_amount, transfering_card))
                         conn.commit()
-                        print(balance)
+                        balance -= int(transfering_amount)
                         print("Succes!")
                         menu_account(card_id, balance)
         else:
